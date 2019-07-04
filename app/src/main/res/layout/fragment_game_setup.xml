@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="gameScoreViewModel"
+                type="com.example.pingpongscore.GameSetupViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/boardColor"
+            tools:context=".GameStartFragment">
+
+        <FrameLayout
+                android:id="@+id/player1_overlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/boundary_view">
+
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/player2_overlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/boundary_view"
+                app:layout_constraintRight_toRightOf="parent">
+
+        </FrameLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player1_text"
+                android:text="@string/player_1"
+                android:textSize="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/start_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/boundary_view"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player2_text"
+                android:text="@string/player_2"
+                android:textSize="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/start_btn"
+                app:layout_constraintStart_toEndOf="@id/boundary_view"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player1_serve_text"
+                android:text="@string/serve"
+                android:textSize="32dp"
+                android:textColor="@color/boundaryColor"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/player1_text"
+                app:layout_constraintEnd_toStartOf="@+id/boundary_view"
+                app:layout_constraintBottom_toTopOf="@+id/start_btn"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player2_serve_text"
+                android:text="@string/serve"
+                android:textSize="32dp"
+                android:textColor="@color/boundaryColor"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/start_btn"
+                app:layout_constraintStart_toEndOf="@+id/boundary_view"
+                app:layout_constraintTop_toBottomOf="@+id/player2_text"/>
+
+        <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@color/boundaryColor"
+                android:id="@+id/boundary_view"/>
+
+        <Button
+                android:id="@+id/start_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="140dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
