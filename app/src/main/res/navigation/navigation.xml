@@ -6,7 +6,15 @@
             app:startDestination="@id/gameStartFragment">
     <fragment
             android:id="@+id/gameStartFragment"
-            android:name="com.example.pingpongscore.GameSetupFragment"
+            android:name="com.example.pingpongscore.gamesetup.GameSetupFragment"
             android:label="fragment_game_start"
-            tools:layout="@layout/fragment_game_setup"/>
+            tools:layout="@layout/fragment_game_setup">
+        <action
+                android:id="@+id/action_gameStartFragment_to_gameScoreFragment"
+                app:destination="@id/gameScoreFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/gameScoreFragment"
+            android:name="com.example.pingpongscore.gamescore.GameScoreFragment"
+            android:label="GameScoreFragment"/>
 </navigation>

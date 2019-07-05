@@ -1,4 +1,4 @@
-package com.example.pingpongscore
+package com.example.pingpongscore.gamesetup
 
 import android.util.Log
 import androidx.lifecycle.LiveData
