@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.pingpongscore.R
 import com.example.pingpongscore.databinding.FragmentGameSetupBinding
 
@@ -28,8 +28,18 @@ class GameSetupFragment : Fragment() {
     ): View? {
 
         // Create a binding object for the fragment
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_game_setup, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_game_setup, container, false
+        )
+
+        // Return the root
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.player1Overlay.setOnClickListener {
             Log.v("GameStartFragment", "Player 1 Overlay Clicked ${gameStartViewModel.server.value}")
@@ -41,8 +51,10 @@ class GameSetupFragment : Fragment() {
             gameStartViewModel.setPlayerServing(Server.PLAYER2)
         }
 
-        binding.startBtn.setOnClickListener{
-            Navigation.createNavigateOnClickListener(R.id.action_gameStartFragment_to_gameScoreFragment, null)
+        binding.startBtn.setOnClickListener {
+            val serveVal = gameStartViewModel.server.value?.num ?: 0
+            val action = GameSetupFragmentDirections.nextAction(serveVal)
+            it.findNavController().navigate(action)
         }
 
         gameStartViewModel.server.observe(this, Observer {
@@ -63,8 +75,7 @@ class GameSetupFragment : Fragment() {
                 }
             }
         })
-
-        // Return the root of the view
-        return binding.root
     }
+
+
 }

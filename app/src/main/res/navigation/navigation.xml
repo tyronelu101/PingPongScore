@@ -10,11 +10,15 @@
             android:label="fragment_game_start"
             tools:layout="@layout/fragment_game_setup">
         <action
-                android:id="@+id/action_gameStartFragment_to_gameScoreFragment"
+                android:id="@+id/next_action"
                 app:destination="@id/gameScoreFragment"/>
     </fragment>
     <fragment
             android:id="@+id/gameScoreFragment"
             android:name="com.example.pingpongscore.gamescore.GameScoreFragment"
-            android:label="GameScoreFragment"/>
+            android:label="GameScoreFragment">
+        <argument
+                android:name="server"
+                app:argType="integer"/>
+    </fragment>
 </navigation>

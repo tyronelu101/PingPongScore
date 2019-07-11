@@ -6,6 +6,7 @@ buildscript {
         kotlin_version = '1.3.40'
         navigationVersion = '1.0.0-rc02'
         lifecycle_version = "2.0.0"
+        nav_version = "2.1.0-alpha06"
 
     }
 
@@ -17,6 +18,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        //For nav safe args
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
