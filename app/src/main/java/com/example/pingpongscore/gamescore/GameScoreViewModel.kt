@@ -3,6 +3,7 @@ package com.example.pingpongscore.gamescore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.util.*
 import kotlin.random.Random
 
 class GameScoreViewModel : ViewModel() {
@@ -27,6 +28,19 @@ class GameScoreViewModel : ViewModel() {
 
     private var serveCounter: Int
     private var startingServer: Int
+
+    // Stack to keep track of player points, serve, and sets. Used for undo
+    /**Think of a more efficient way later**/
+    private val player1PointStack = Stack<Int>()
+    private val player2PointStack = Stack<Int>()
+
+    private val player1ServeStack = Stack<Boolean>()
+    private val player2ServeStack = Stack<Boolean>()
+
+    private val player1SetsStack = Stack<Int>()
+    private val player2SetsStack = Stack<Int>()
+
+    private val startingServerStack = Stack<Int>()
 
     init {
         _player1Points.value = 0
@@ -70,6 +84,7 @@ class GameScoreViewModel : ViewModel() {
     }
 
     fun increasePlayer1Point() {
+        record()
         _player1Points.value = _player1Points.value?.plus(1)
         if (_player1Points.value == matchPoint) {
             _player1Sets.value = _player1Sets.value?.plus(1)
@@ -81,6 +96,7 @@ class GameScoreViewModel : ViewModel() {
     }
 
     fun increasePlayer2Point() {
+        record()
         _player2Points.value = _player2Points.value?.plus(1)
         if (_player2Points.value == matchPoint) {
             _player2Sets.value = _player2Sets.value?.plus(1)
@@ -92,6 +108,31 @@ class GameScoreViewModel : ViewModel() {
 
     }
 
+    //Push values for each player onto a stack
+    private fun record() {
+
+        //Push the scores
+        val p1Score = _player1Points.value
+        val p2Score = _player2Points.value
+
+        //Push the sets
+        val p1Sets = _player1Sets.value
+        val p2Sets = _player2Sets.value
+
+        //Push the serve status
+        val p1IsServe = _player1IsServing.value
+        val p2IsServe = _player2IsServing.value
+
+        player1PointStack.push(p1Score)
+        player2PointStack.push(p2Score)
+        player1SetsStack.push(p1Sets)
+        player2SetsStack.push(p2Sets)
+        player1ServeStack.push(p1IsServe)
+        player2ServeStack.push(p2IsServe)
+        startingServerStack.push(startingServer)
+
+    }
+
     private fun startNewSet() {
 
         serveCounter = 0
@@ -99,12 +140,11 @@ class GameScoreViewModel : ViewModel() {
         _player2Points.value = 0
 
         //Switch the servers
-        if(startingServer == 1) {
+        if (startingServer == 1) {
             startingServer = 2
             _player2IsServing.value = true
             _player1IsServing.value = false
-        }
-        else if (startingServer == 2) {
+        } else if (startingServer == 2) {
             startingServer = 1
             _player1IsServing.value = true
             _player2IsServing.value = false
@@ -123,6 +163,25 @@ class GameScoreViewModel : ViewModel() {
         } else if (_player2IsServing.value!! && (serveCounter % 2 == 0)) {
             _player1IsServing.value = true
             _player2IsServing.value = false
+        }
+    }
+
+    fun undo() {
+
+        if (serveCounter != 0) {
+            --serveCounter
+        }
+
+        if (!player1PointStack.empty()) {
+
+            _player1Points.value = player1PointStack.pop()
+            _player2Points.value = player2PointStack.pop()
+            _player1IsServing.value = player1ServeStack.pop()
+            _player2IsServing.value = player2ServeStack.pop()
+            _player1Sets.value = player1SetsStack.pop()
+            _player2Sets.value = player2SetsStack.pop()
+            startingServer = startingServerStack.pop()
+
         }
 
 

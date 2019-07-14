@@ -3,10 +3,9 @@ package com.example.pingpongscore.gamescore
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,7 +35,6 @@ class GameScoreFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,7 +43,34 @@ class GameScoreFragment : Fragment() {
         // Initialize the servers using the arg value
         gameScoreViewModel.initializeServers(args.server)
 
+        var downX = 0f
+        var downY = 0f
 
+        binding.root.setOnTouchListener { view, motionEvent ->
+
+            val x = motionEvent.x
+            val y = motionEvent.y
+
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    downX = motionEvent.x
+                    downY = motionEvent.y
+                    true
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    if (x < binding.boundaryView.left && y <= downY) {
+                        gameScoreViewModel.increasePlayer1Point()
+                    } else if (x > binding.boundaryView.right && y <= downY) {
+                        gameScoreViewModel.increasePlayer2Point()
+                    } else if (y > downY + 100) {
+                        gameScoreViewModel.undo()
+                    }
+
+                    true
+                }
+            }
+            true
+        }
     }
-
 }

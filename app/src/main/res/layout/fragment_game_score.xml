@@ -19,36 +19,14 @@
             android:background="@color/boardColor"
             tools:context=".GameStartFragment">
 
-        <FrameLayout
-                android:id="@+id/player1_overlay"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/boundary_view"
-                android:onClick="@{() -> viewModel.increasePlayer1Point()}">
-
-        </FrameLayout>
-
-        <FrameLayout
-                android:id="@+id/player2_overlay"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/boundary_view"
-                app:layout_constraintRight_toRightOf="parent"
-                android:onClick="@{() -> viewModel.increasePlayer2Point()}">
-
-        </FrameLayout>
-
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_text"
                 android:text="@string/player_1"
                 android:textSize="40dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +38,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_sets_text"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player1Sets))}"
-                android:textSize="40dp"
+                android:textSize="32dp"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="sans-serif-medium"
+                tools:text="0"
                 app:layout_constraintTop_toBottomOf="@+id/player1_text"
                 app:layout_constraintBottom_toTopOf="@id/player1_points"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -70,7 +51,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_points"
-                android:textSize="40dp"
+                android:textSize="72dp"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="sans-serif-medium"
+                tools:text="0"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player1Points))}"
                 app:layout_constraintTop_toBottomOf="@id/player1_sets_text"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -83,6 +67,8 @@
                 android:id="@+id/player2_text"
                 android:text="@string/player_2"
                 android:textSize="40dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +80,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_sets_text"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player2Sets))}"
-                android:textSize="40dp"
+                android:textSize="32dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
+                tools:text="0"
                 app:layout_constraintTop_toBottomOf="@+id/player2_text"
                 app:layout_constraintLeft_toRightOf="@id/boundary_view"
                 app:layout_constraintRight_toRightOf="parent"
@@ -105,10 +94,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_points"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player2Points))}"
-                android:textSize="40dp"
+                android:textSize="72dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
+                tools:text="0"
                 app:layout_constraintTop_toBottomOf="@id/player2_sets_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/player2_overlay"
+                app:layout_constraintStart_toEndOf="@+id/boundary_view"
                 app:layout_constraintBottom_toTopOf="@+id/player2_serve_text"/>
 
         <TextView
@@ -116,8 +108,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_serve_text"
                 android:text="@string/serve"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="32dp"
-                android:textColor="@color/boundaryColor"
+                android:textColor="@color/colorWhite"
                 android:visibility="@{safeUnbox(viewModel.player1IsServing) ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintTop_toBottomOf="@+id/player1_points"
                 app:layout_constraintEnd_toStartOf="@+id/boundary_view"
@@ -130,7 +123,7 @@
                 android:id="@+id/player2_serve_text"
                 android:text="@string/serve"
                 android:textSize="32dp"
-                android:textColor="@color/boundaryColor"
+                android:textColor="@color/colorWhite"
                 android:visibility="@{safeUnbox(viewModel.player2IsServing) ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -142,7 +135,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/boundaryColor"
+                android:background="@color/colorWhite"
                 android:id="@+id/boundary_view"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/boundary_view">
+                app:layout_constraintRight_toRightOf="@id/boundary_view"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0">
 
         </FrameLayout>
 
@@ -44,6 +46,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_text"
                 android:text="@string/player_1"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 android:textSize="40dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/start_btn"
@@ -56,6 +60,8 @@
                 android:id="@+id/player2_text"
                 android:text="@string/player_2"
                 android:textSize="40dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/start_btn"
@@ -66,8 +72,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_serve_text"
                 android:text="@string/serve"
-                android:textSize="32dp"
-                android:textColor="@color/boundaryColor"
+                android:textSize="40dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@+id/player1_text"
                 app:layout_constraintEnd_toStartOf="@+id/boundary_view"
@@ -79,8 +86,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_serve_text"
                 android:text="@string/serve"
-                android:textSize="32dp"
-                android:textColor="@color/boundaryColor"
+                android:textSize="40dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorWhite"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/start_btn"
@@ -92,7 +100,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/boundaryColor"
+                android:background="@color/colorWhite"
                 android:id="@+id/boundary_view"/>
 
         <Button
@@ -100,10 +108,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginBottom="140dp"/>
+                android:layout_marginBottom="140dp"
+                android:background="@drawable/roundbutton"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
