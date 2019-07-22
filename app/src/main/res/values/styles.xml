@@ -8,4 +8,27 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PlayerNameInput">
+        <item name="android:textSize">32dp</item>
+        <item name="android:textColorHint">@color/textColor</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="PlayerScoreName">
+        <item name="android:textSize">24dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="PointText">
+        <item name="android:textSize">156dp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
 </resources>

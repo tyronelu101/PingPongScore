@@ -1,12 +1,19 @@
 package com.example.pingpongscore.gamescore
 
+import android.app.Application
+import android.util.Log
+import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pingpongscore.database.Match
+import com.example.pingpongscore.database.MatchDatabaseDao
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.random.Random
 
-class GameScoreViewModel : ViewModel() {
+class GameScoreViewModel(val database: MatchDatabaseDao, application: Application,
+                         val player1Name: String, val player2Name: String) : ViewModel() {
 
     private var matchPoint: Int
 
@@ -15,6 +22,7 @@ class GameScoreViewModel : ViewModel() {
     private val _player1Points = MutableLiveData<Int>()
 
     val player1IsServing: LiveData<Boolean> = _player1IsServing
+    @NonNull
     val player1Sets: LiveData<Int> = _player1Sets
     val player1Points: LiveData<Int> = _player1Points
 
@@ -42,6 +50,9 @@ class GameScoreViewModel : ViewModel() {
 
     private val startingServerStack = Stack<Int>()
 
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
     init {
         _player1Points.value = 0
         _player1Sets.value = 0
@@ -51,6 +62,31 @@ class GameScoreViewModel : ViewModel() {
         matchPoint = 11
         serveCounter = 0
         startingServer = -1
+    }
+
+    fun saveCurrentMatch() {
+        uiScope.launch {
+
+            val player1SetsWon = player1Sets.value ?: -1
+            val player2SetsWon = player2Sets.value ?: -1
+
+            Log.v("GameScoreViewModel", "Saving player 1 sets: $player1SetsWon\n Player2 sets: $player2SetsWon")
+            val match = Match(0, player1Name, player2Name, player1SetsWon, player2SetsWon)
+            insertMatch(match)
+        }
+    }
+
+    private suspend fun insertMatch(match: Match) {
+
+        withContext(Dispatchers.IO) {
+            database.insert(match)
+        }
+
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
     // Set the starting player server base on int argument
@@ -183,7 +219,6 @@ class GameScoreViewModel : ViewModel() {
             startingServer = startingServerStack.pop()
 
         }
-
 
     }
 

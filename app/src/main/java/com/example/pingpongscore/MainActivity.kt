@@ -2,6 +2,7 @@ package com.example.pingpongscore
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 

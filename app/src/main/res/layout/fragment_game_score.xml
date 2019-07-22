@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View"/>
 
         <variable
@@ -20,18 +21,17 @@
             tools:context=".GameStartFragment">
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_text"
-                android:text="@string/player_1"
-                android:textSize="40dp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:text="@{viewModel.player1Name}"
+                style="@style/PlayerScoreName"
+                android:gravity="right"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/boundary_view"
-                app:layout_constraintVertical_bias="0.3"/>
+                app:layout_constraintVertical_bias="0.05"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -39,41 +39,37 @@
                 android:id="@+id/player1_sets_text"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player1Sets))}"
                 android:textSize="32dp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 android:fontFamily="sans-serif-medium"
                 tools:text="0"
-                app:layout_constraintTop_toBottomOf="@+id/player1_text"
-                app:layout_constraintBottom_toTopOf="@id/player1_points"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/boundary_view"/>
+                app:layout_constraintRight_toLeftOf="@id/boundary_view"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_points"
-                android:textSize="72dp"
-                android:textColor="@color/colorWhite"
-                android:fontFamily="sans-serif-medium"
+                style="@style/PointText"
                 tools:text="0"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player1Points))}"
-                app:layout_constraintTop_toBottomOf="@id/player1_sets_text"
+                app:layout_constraintTop_toBottomOf="@+id/player1_text"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/boundary_view"
-                app:layout_constraintBottom_toTopOf="@+id/player1_serve_text"/>
+                app:layout_constraintBottom_toTopOf="@+id/player1_serve_text"
+                android:layout_marginTop="8dp"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_text"
-                android:text="@string/player_2"
-                android:textSize="40dp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:text="@{viewModel.player2Name}"
+                style="@style/PlayerScoreName"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/boundary_view"
-                app:layout_constraintVertical_bias="0.3"/>
+                app:layout_constraintVertical_bias="0.05"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -82,26 +78,24 @@
                 android:text="@{String.valueOf(safeUnbox(viewModel.player2Sets))}"
                 android:textSize="32dp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 tools:text="0"
-                app:layout_constraintTop_toBottomOf="@+id/player2_text"
                 app:layout_constraintLeft_toRightOf="@id/boundary_view"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/player2_points"/>
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_points"
                 android:text="@{String.valueOf(safeUnbox(viewModel.player2Points))}"
-                android:textSize="72dp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                style="@style/PointText"
                 tools:text="0"
-                app:layout_constraintTop_toBottomOf="@id/player2_sets_text"
+                app:layout_constraintTop_toBottomOf="@+id/player2_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/boundary_view"
-                app:layout_constraintBottom_toTopOf="@+id/player2_serve_text"/>
+                app:layout_constraintBottom_toTopOf="@+id/player2_serve_text"
+                android:layout_marginTop="8dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -110,7 +104,7 @@
                 android:text="@string/serve"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="32dp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 android:visibility="@{safeUnbox(viewModel.player1IsServing) ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintTop_toBottomOf="@+id/player1_points"
                 app:layout_constraintEnd_toStartOf="@+id/boundary_view"
@@ -123,7 +117,7 @@
                 android:id="@+id/player2_serve_text"
                 android:text="@string/serve"
                 android:textSize="32dp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 android:visibility="@{safeUnbox(viewModel.player2IsServing) ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +129,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/colorWhite"
+                android:background="@color/boundaryColor"
                 android:id="@+id/boundary_view"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

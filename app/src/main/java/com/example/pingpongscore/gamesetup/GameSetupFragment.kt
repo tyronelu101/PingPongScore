@@ -53,8 +53,11 @@ class GameSetupFragment : Fragment() {
 
         binding.startBtn.setOnClickListener {
             val serveVal = gameStartViewModel.server.value?.num ?: 0
-            val action = GameSetupFragmentDirections.nextAction(serveVal)
+            val player1Name = binding.player1Text.text.toString()
+            val player2Name = binding.player2Text.text.toString()
+            val action = GameSetupFragmentDirections.nextAction(serveVal, player1Name, player2Name)
             it.findNavController().navigate(action)
+
         }
 
         gameStartViewModel.server.observe(this, Observer {

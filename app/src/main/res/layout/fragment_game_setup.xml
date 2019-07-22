@@ -41,40 +41,38 @@
 
         </FrameLayout>
 
-        <TextView
-                android:layout_width="wrap_content"
+        <EditText
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_text"
-                android:text="@string/player_1"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
-                android:textSize="40dp"
+                android:hint="@string/player_1"
+                style="@style/PlayerNameInput"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/start_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/boundary_view"/>
 
-        <TextView
-                android:layout_width="wrap_content"
+        <EditText
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_text"
-                android:text="@string/player_2"
-                android:textSize="40dp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:hint="@string/player_2"
+                style="@style/PlayerNameInput"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/start_btn"
                 app:layout_constraintStart_toEndOf="@id/boundary_view"/>
 
-        <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player1_serve_text"
                 android:text="@string/serve"
                 android:textSize="40dp"
+                tools:text="Serve"
+                tools:visibility="visible"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@+id/player1_text"
                 app:layout_constraintEnd_toStartOf="@+id/boundary_view"
@@ -87,8 +85,10 @@
                 android:id="@+id/player2_serve_text"
                 android:text="@string/serve"
                 android:textSize="40dp"
+                tools:text="Serve"
+                tools:visibility="visible"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textColor"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/start_btn"
@@ -100,7 +100,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/colorWhite"
+                android:background="@color/boundaryColor"
                 android:id="@+id/boundary_view"/>
 
         <Button
@@ -116,4 +116,5 @@
                 android:background="@drawable/roundbutton"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
