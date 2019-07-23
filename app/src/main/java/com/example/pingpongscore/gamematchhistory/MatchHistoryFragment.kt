@@ -39,21 +39,19 @@ class MatchHistoryFragment : Fragment() {
         binding.viewModel = matchHistoryViewModel
         binding.lifecycleOwner = this
 
+        //Create an adapter
         val adapter = MatchAdapter()
+
+        //Connect the matchadapter to the recycler view
         binding.matchList.adapter = adapter
 
-        matchHistoryViewModel.matches.observe(this, Observer{
-            adapter.data = it
+        //Observe the match list in view model. Every time the list changes, set the
+        //adapter's match list to the view models list
+        matchHistoryViewModel.matches.observe(this, Observer {
+            adapter.submitList(it)
         })
 
         // Inflate the layout for this fragment
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
 }

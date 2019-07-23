@@ -9,11 +9,14 @@ import androidx.lifecycle.ViewModel
 import com.example.pingpongscore.database.Match
 import com.example.pingpongscore.database.MatchDatabaseDao
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
 
-class GameScoreViewModel(val database: MatchDatabaseDao, application: Application,
-                         val player1Name: String, val player2Name: String) : ViewModel() {
+class GameScoreViewModel(
+    val database: MatchDatabaseDao, application: Application,
+    val player1Name: String, val player2Name: String
+) : ViewModel() {
 
     private var matchPoint: Int
 
@@ -71,7 +74,10 @@ class GameScoreViewModel(val database: MatchDatabaseDao, application: Applicatio
             val player2SetsWon = player2Sets.value ?: -1
 
             Log.v("GameScoreViewModel", "Saving player 1 sets: $player1SetsWon\n Player2 sets: $player2SetsWon")
-            val match = Match(0, player1Name, player2Name, player1SetsWon, player2SetsWon)
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date())
+
+            val match = Match(0, player1Name, player2Name, player1SetsWon, player2SetsWon, currentDate)
             insertMatch(match)
         }
     }

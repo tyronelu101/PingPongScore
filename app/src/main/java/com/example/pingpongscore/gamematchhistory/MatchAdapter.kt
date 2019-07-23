@@ -1,34 +1,64 @@
 package com.example.pingpongscore.gamematchhistory
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pingpongscore.R
 import com.example.pingpongscore.database.Match
-import kotlinx.android.synthetic.main.fragment_game_match_history.view.*
+import com.example.pingpongscore.databinding.MatchItemViewBinding
 
-class MatchAdapter: RecyclerView.Adapter<MatchItemViewHolder>() {
+//
+class MatchAdapter : ListAdapter<Match, MatchAdapter.ViewHolder>(MatchDiffCallback()) {
 
-    var data = listOf<Match>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    // Recycler view calls this to display item at the current position.
+    // Sets the view holders text using item
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+        Log.v("MatchAdapter", "OnBindViewHolder")
 
-    override fun getItemCount(): Int = data.size
-
-    override fun onBindViewHolder(holder: MatchItemViewHolder, position: Int) {
-        val item = data[position]
-        holder.textView.text = item.matchId.toString()
     }
 
     // @parent the recycler view
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchItemViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.match_item_view, parent, false) as TextView
+    // Is called for each item in our list. Creates the view holders for the list but doesn't
+    // Set the text which is what onBindViewHolder does
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
 
-        return MatchItemViewHolder(view)
+    class ViewHolder private constructor(val binding: MatchItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = MatchItemViewBinding.inflate(layoutInflater, parent, false)
+                Log.v("MatchAdapter", "OnCreateViewHolder")
+                return ViewHolder(binding)
+            }
+        }
+
+        fun bind(item: Match) {
+           binding.match = item
+        }
+
+    }
+}
+
+class MatchDiffCallback : DiffUtil.ItemCallback<Match>() {
+
+    // Will check all the fields for equality
+    override fun areContentsTheSame(oldItem: Match, newItem: Match): Boolean {
+        return oldItem == newItem
+    }
+
+    // Returns true if oldItem and newItem has same id
+    override fun areItemsTheSame(oldItem: Match, newItem: Match): Boolean {
+        return oldItem.matchId == newItem.matchId
     }
 
 }

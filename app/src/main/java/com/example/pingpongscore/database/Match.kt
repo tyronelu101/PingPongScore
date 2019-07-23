@@ -3,6 +3,7 @@ package com.example.pingpongscore.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDateTime
 
 
 /*
@@ -31,6 +32,9 @@ data class Match(
     var player1SetsWon: Int,
 
     @ColumnInfo(name = "player2_sets_won")
-    var player2SetsWon: Int
+    var player2SetsWon: Int,
+
+    @ColumnInfo(name = "date_time_finished")
+    var dateTimeFinshed: String
 
 )
