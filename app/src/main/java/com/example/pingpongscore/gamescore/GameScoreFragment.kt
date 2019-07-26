@@ -4,19 +4,13 @@ package com.example.pingpongscore.gamescore
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.example.pingpongscore.R
-import com.example.pingpongscore.database.Match
 import com.example.pingpongscore.database.MatchDatabase
 import com.example.pingpongscore.databinding.FragmentGameScoreBinding
-
 
 class GameScoreFragment : Fragment() {
 
@@ -33,7 +27,8 @@ class GameScoreFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = MatchDatabase.getDatabase(application).matchDao
-        val viewModelFactory = GameScoreViewModelFactory(dataSource, application, args.player1Name, args.player2Name)
+        val viewModelFactory =
+            GameScoreViewModelFactory(dataSource, application, args.player1Name, args.player2Name, args.tieBreak)
         gameScoreViewModel = ViewModelProviders.of(this, viewModelFactory).get(GameScoreViewModel::class.java)
 
         binding.viewModel = gameScoreViewModel
@@ -81,24 +76,16 @@ class GameScoreFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.options_menu, menu)
+        inflater?.inflate(R.menu.score_screen_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item?.itemId) {
             R.id.options_save -> {
                 gameScoreViewModel.saveCurrentMatch()
-                Log.v("GameScoreFragment", "Match saved")
-
-            }
-            R.id.gameMatchHistoryFragment -> {
-                return NavigationUI.onNavDestinationSelected(
-                    item!!,
-                    view!!.findNavController()
-                )
             }
         }
         return super.onOptionsItemSelected(item)

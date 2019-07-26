@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+            app:key="tieBreakToggle"
+            app:title="Tie Break"/>
+
+    <Preference
+            app:key="about"
+            app:title="About"
+            app:summary="This is some random text"/>
+
+</PreferenceScreen>

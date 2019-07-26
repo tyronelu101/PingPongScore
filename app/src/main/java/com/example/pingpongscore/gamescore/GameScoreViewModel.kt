@@ -15,17 +15,17 @@ import kotlin.random.Random
 
 class GameScoreViewModel(
     val database: MatchDatabaseDao, application: Application,
-    val player1Name: String, val player2Name: String
+    val player1Name: String, val player2Name: String, tieBreaker: Boolean
 ) : ViewModel() {
 
-    private var matchPoint: Int
+    private val tieBreakerEnabled = tieBreaker
+    private val pointsPerSet = 11
 
     private val _player1IsServing = MutableLiveData<Boolean>()
     private val _player1Sets = MutableLiveData<Int>()
     private val _player1Points = MutableLiveData<Int>()
 
     val player1IsServing: LiveData<Boolean> = _player1IsServing
-    @NonNull
     val player1Sets: LiveData<Int> = _player1Sets
     val player1Points: LiveData<Int> = _player1Points
 
@@ -61,13 +61,13 @@ class GameScoreViewModel(
         _player1Sets.value = 0
         _player2Points.value = 0
         _player2Sets.value = 0
-
-        matchPoint = 11
+        Log.v("GameScoreViewModel", "Tie break is $tieBreaker")
         serveCounter = 0
         startingServer = -1
     }
 
     fun saveCurrentMatch() {
+
         uiScope.launch {
 
             val player1SetsWon = player1Sets.value ?: -1
@@ -128,7 +128,21 @@ class GameScoreViewModel(
     fun increasePlayer1Point() {
         record()
         _player1Points.value = _player1Points.value?.plus(1)
-        if (_player1Points.value == matchPoint) {
+
+        Log.v("GameScoreViewModel", "Both at set point ${bothAtSetPoint()}")
+        if (tieBreakerEnabled && bothAtSetPoint()) {
+            //Check if difference of score is 2
+            val player1Point = player1Points.value ?: -1
+            val player2Point = player2Points.value ?: -1
+            val diffIsTwo = (player1Point.minus(player2Point)) == 2
+            Log.v("GameScoreViewModel", "Tie Breaker $diffIsTwo $player1Point and $player2Point")
+            switchServer()
+            if (diffIsTwo) {
+                _player1Sets.value = _player1Sets.value?.plus(1)
+                startNewSet()
+            }
+
+        } else if (_player1Points.value == pointsPerSet) {
             _player1Sets.value = _player1Sets.value?.plus(1)
             startNewSet()
         } else {
@@ -139,15 +153,37 @@ class GameScoreViewModel(
 
     fun increasePlayer2Point() {
         record()
+
         _player2Points.value = _player2Points.value?.plus(1)
-        if (_player2Points.value == matchPoint) {
+        if (tieBreakerEnabled && bothAtSetPoint()) {
+
+            //Check if difference of score is 2
+            val player1Point = player1Points.value ?: -1
+            val player2Point = player2Points.value ?: -1
+            val diffIsTwo = (player2Point.minus(player1Point)) == 2
+            switchServer()
+
+            if (diffIsTwo) {
+                _player2Sets.value = _player2Sets.value?.plus(1)
+                startNewSet()
+            }
+        } else if (_player2Points.value == pointsPerSet) {
             _player2Sets.value = _player2Sets.value?.plus(1)
             startNewSet()
 
         } else {
             changeServer()
         }
+    }
 
+    // Use this when tie breaker rule is enabled
+    private fun bothAtSetPoint(): Boolean {
+
+        //If both players are at set point or greater
+        if (_player1Points.value!! >= (pointsPerSet - 1) && _player2Points.value!! >= (pointsPerSet - 1)) {
+            return true
+        }
+        return false
     }
 
     //Push values for each player onto a stack
@@ -203,6 +239,17 @@ class GameScoreViewModel(
             _player1IsServing.value = false
             _player2IsServing.value = true
         } else if (_player2IsServing.value!! && (serveCounter % 2 == 0)) {
+            _player1IsServing.value = true
+            _player2IsServing.value = false
+        }
+    }
+
+    //Switches the server plain and simple
+    private fun switchServer() {
+        if (_player1IsServing.value!!) {
+            _player1IsServing.value = false
+            _player2IsServing.value = true
+        } else if (_player2IsServing.value!!) {
             _player1IsServing.value = true
             _player2IsServing.value = false
         }

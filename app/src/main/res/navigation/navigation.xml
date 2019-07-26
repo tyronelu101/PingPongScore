@@ -26,10 +26,17 @@
         <argument
                 android:name="player2Name"
                 app:argType="string"/>
+        <argument
+                android:name="tieBreak"
+                app:argType="boolean"/>
     </fragment>
     <fragment
             android:id="@+id/gameMatchHistoryFragment"
             android:name="com.example.pingpongscore.gamematchhistory.MatchHistoryFragment"
             android:label="fragment_game_match_history"
             tools:layout="@layout/fragment_game_match_history"/>
+    <fragment
+            android:id="@+id/gamePreferenceFragment"
+            android:name="com.example.pingpongscore.GamePreferenceFragment"
+            android:label="GamePreferenceFragment"/>
 </navigation>

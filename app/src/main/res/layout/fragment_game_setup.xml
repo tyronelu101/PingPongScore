@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_text"
                 android:hint="@string/player_2"
+
                 style="@style/PlayerNameInput"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

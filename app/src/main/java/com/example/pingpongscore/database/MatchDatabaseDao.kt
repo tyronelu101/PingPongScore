@@ -17,7 +17,7 @@ interface MatchDatabaseDao {
     @Query("DELETE FROM match_table")
     fun clear()
 
-    @Query("SELECT * FROM match_table ORDER BY matchId ASC")
+    @Query("SELECT * FROM match_table ORDER BY date_time_finished DESC")
     fun getAllMatches(): LiveData<List<Match>>
 
 

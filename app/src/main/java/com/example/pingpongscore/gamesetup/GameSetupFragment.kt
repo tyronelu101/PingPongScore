@@ -2,14 +2,16 @@ package com.example.pingpongscore.gamesetup
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.example.pingpongscore.R
 import com.example.pingpongscore.databinding.FragmentGameSetupBinding
 
@@ -33,10 +35,34 @@ class GameSetupFragment : Fragment() {
             R.layout.fragment_game_setup, container, false
         )
 
+        setHasOptionsMenu(true)
+
+
         // Return the root
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.main_screen_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.gameMatchHistoryFragment -> {
+                return NavigationUI.onNavDestinationSelected(
+                    item!!, view!!.findNavController()
+                )
+            }
+
+            R.id.gamePreferenceFragment -> {
+                return NavigationUI.onNavDestinationSelected(
+                    item!!, view!!.findNavController()
+                )
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +82,11 @@ class GameSetupFragment : Fragment() {
             val player1Name = binding.player1Text.text.toString()
             val player2Name = binding.player2Text.text.toString()
 
-            val action = GameSetupFragmentDirections.nextAction(serveVal, player1Name, player2Name)
+            // Retrieve the game setting prefernes and pass it into direction args
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
+            val tieBreakRule =  sharedPreferences.getBoolean("tieBreakToggle", false)
+
+            val action = GameSetupFragmentDirections.nextAction(serveVal, player1Name, player2Name, tieBreakRule)
             it.findNavController().navigate(action)
 
         }
@@ -80,6 +110,4 @@ class GameSetupFragment : Fragment() {
             }
         })
     }
-
-
 }
