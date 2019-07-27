@@ -1,9 +1,14 @@
 package com.example.pingpongscore.gamesetup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,8 +17,11 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.room.util.StringUtil
 import com.example.pingpongscore.R
+import com.example.pingpongscore.SaveConfirmDialogFragment
 import com.example.pingpongscore.databinding.FragmentGameSetupBinding
+import org.w3c.dom.Text
 
 
 class GameSetupFragment : Fragment() {
@@ -84,12 +92,42 @@ class GameSetupFragment : Fragment() {
 
             // Retrieve the game setting prefernes and pass it into direction args
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
-            val tieBreakRule =  sharedPreferences.getBoolean("tieBreakToggle", false)
+            val tieBreakRule = sharedPreferences.getBoolean("tieBreakToggle", false)
 
             val action = GameSetupFragmentDirections.nextAction(serveVal, player1Name, player2Name, tieBreakRule)
             it.findNavController().navigate(action)
+        }
+
+        binding.player1Text.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
+
+        val textEditWatcher = object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.startBtn.isEnabled = !textIsEmpty()
+            }
 
         }
+
+        binding.player1Text.addTextChangedListener(textEditWatcher)
+        binding.player2Text.addTextChangedListener(textEditWatcher)
 
         gameStartViewModel.server.observe(this, Observer {
             when (it) {
@@ -110,4 +148,8 @@ class GameSetupFragment : Fragment() {
             }
         })
     }
+
+
+    private fun textIsEmpty(): Boolean =
+        (TextUtils.isEmpty(binding.player1Text.text) || TextUtils.isEmpty(binding.player2Text.text))
 }

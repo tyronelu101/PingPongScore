@@ -66,21 +66,28 @@ class GameScoreViewModel(
         startingServer = -1
     }
 
-    fun saveCurrentMatch() {
+    fun saveCurrentMatch(): Int {
 
-        uiScope.launch {
+        // Only be able to save if one player has won a set
+        if (hasFinishedOneSet()) {
+            uiScope.launch {
 
-            val player1SetsWon = player1Sets.value ?: -1
-            val player2SetsWon = player2Sets.value ?: -1
+                val player1SetsWon = player1Sets.value ?: -1
+                val player2SetsWon = player2Sets.value ?: -1
 
-            Log.v("GameScoreViewModel", "Saving player 1 sets: $player1SetsWon\n Player2 sets: $player2SetsWon")
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
+                Log.v("GameScoreViewModel", "Saving player 1 sets: $player1SetsWon\n Player2 sets: $player2SetsWon")
+                val sdf = SimpleDateFormat("yyyy/M/dd/ kk:mm")
+                val currentDate = sdf.format(Date())
 
-            val match = Match(0, player1Name, player2Name, player1SetsWon, player2SetsWon, currentDate)
-            insertMatch(match)
+                val match = Match(0, player1Name, player2Name, player1SetsWon, player2SetsWon, currentDate)
+                insertMatch(match)
+            }
+            return 1
         }
+        return -1
     }
+
+    private fun hasFinishedOneSet() = _player1Sets.value!! >= 1 || _player2Sets.value!! >= 1
 
     private suspend fun insertMatch(match: Match) {
 

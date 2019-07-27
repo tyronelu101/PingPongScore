@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#333333</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#333333</color>
+    <color name="colorPrimary">#19AF77</color>
+    <color name="colorPrimaryDark">#088D65</color>
+    <color name="colorAccent">#fff</color>
 
-    <color name="boardColor">#bf000000</color>
+    <color name="boardColor">#40B489</color>
     <color name="boundaryColor">#fff</color>
-    <color name="textColor">#D2D2D2</color>
+    <color name="textColor">#fff</color>
 
+    <color name="buttonStatePressedFalse">#fff</color>
+    <color name="buttonStatePressed">#bf000000</color>
+    <color name="buttonStateEnabledFalse">#af000000</color>
 </resources>

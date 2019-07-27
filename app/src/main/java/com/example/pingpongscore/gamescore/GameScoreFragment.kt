@@ -4,15 +4,44 @@ package com.example.pingpongscore.gamescore
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pingpongscore.R
+import com.example.pingpongscore.SaveConfirmDialogFragment
 import com.example.pingpongscore.database.MatchDatabase
 import com.example.pingpongscore.databinding.FragmentGameScoreBinding
+import com.example.pingpongscore.gamesetup.GameSetupFragmentDirections
 
-class GameScoreFragment : Fragment() {
+class GameScoreFragment : Fragment(), SaveConfirmDialogFragment.SaveConfirmDialogListener {
+
+    override fun onDialogPositiveClick(dialogFragment: DialogFragment) {
+        val saveCode = gameScoreViewModel.saveCurrentMatch()
+        if (saveCode == -1) {
+            Toast.makeText(
+                activity?.applicationContext,
+                "Must complete at least one set to save",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                activity?.applicationContext,
+                "Match Saved Successfully",
+                Toast.LENGTH_SHORT
+            ).show()
+            val action = GameScoreFragmentDirections.nextAction()
+            findNavController().navigate(action)
+        }
+    }
+
+    override fun onDialogNegativeClick(dialogFragment: DialogFragment) {
+        Log.v("DialogFragment", "Cancel clicked")
+    }
 
     private lateinit var binding: FragmentGameScoreBinding
     private lateinit var gameScoreViewModel: GameScoreViewModel
@@ -85,7 +114,12 @@ class GameScoreFragment : Fragment() {
 
         when (item?.itemId) {
             R.id.options_save -> {
-                gameScoreViewModel.saveCurrentMatch()
+
+                //Display the dialog to confirm save
+                val dialog = SaveConfirmDialogFragment()
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager!!, "SaveFragment")
+
             }
         }
         return super.onOptionsItemSelected(item)

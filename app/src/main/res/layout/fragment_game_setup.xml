@@ -57,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player2_text"
                 android:hint="@string/player_2"
-
                 style="@style/PlayerNameInput"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,13 +107,12 @@
                 android:id="@+id/start_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/start"
-                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginBottom="140dp"
-                android:background="@drawable/roundbutton"/>
+                android:layout_marginBottom="160dp"
+                style="@style/StartButton"
+                android:enabled="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

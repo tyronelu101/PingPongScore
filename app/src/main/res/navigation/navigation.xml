@@ -29,6 +29,9 @@
         <argument
                 android:name="tieBreak"
                 app:argType="boolean"/>
+        <action
+                android:id="@+id/next_action"
+                app:destination="@id/gameStartFragment"/>
     </fragment>
     <fragment
             android:id="@+id/gameMatchHistoryFragment"

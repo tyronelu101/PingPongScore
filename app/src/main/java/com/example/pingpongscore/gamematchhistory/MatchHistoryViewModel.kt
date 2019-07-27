@@ -14,12 +14,5 @@ class MatchHistoryViewModel(dataBase: MatchDatabaseDao) : ViewModel() {
     //Note to self. Doesnt require coroutine because room takes care of updating returning livedata for us
     val matches = dataBase.getAllMatches()
 
-    val matchesString = Transformations.map(matches) {
-        var stringVal = ""
-        for(match in it) {
-            stringVal += "${match.player1Name}: ${match.player1SetsWon}, ${match.player2Name}: ${match.player2SetsWon}\n"
-        }
-        stringVal
-    }
 
 }

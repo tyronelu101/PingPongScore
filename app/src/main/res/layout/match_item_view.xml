@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="match"
                 type="com.example.pingpongscore.database.Match"/>
@@ -13,52 +14,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@color/textColor">
+            android:layout_margin="8dp">
 
         <TextView
-                android:id="@+id/player1_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/playerNames"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Johnny Sins"
-                app:player1Name="@{match}"/>
+                android:textSize="16sp"
+                app:playerNames="@{match}"
+                android:layout_weight="5"
+                android:textColor="@color/textColor"
+                android:gravity="center_horizontal"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/playerSets"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text=":"/>
-
-        <TextView
-                android:id="@+id/player2_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Johnny Dins"
-                app:player2Name="@{match}"/>
-
-        <TextView
-                android:id="@+id/player1_sets_won"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="5"
-                app:player1SetsWon="@{match}"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"/>
-
-        <TextView
-                android:id="@+id/player2_sets_won"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="3"
-                app:player2SetsWon="@{match}"/>
+                tools:text="5-1"
+                android:textSize="16sp"
+                app:playerSets="@{match}"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColor"/>
 
         <TextView
                 android:id="@+id/date_time_finished"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:dateAndTimeFinished="@{match}"/>
+                app:dateAndTimeFinished="@{match}"
+                android:textSize="16sp"
+                tools:text="2013 day at"
+                android:gravity="right"
+                android:layout_weight="2"
+                android:textColor="@color/textColor"/>
 
     </LinearLayout>
+
 </layout>
