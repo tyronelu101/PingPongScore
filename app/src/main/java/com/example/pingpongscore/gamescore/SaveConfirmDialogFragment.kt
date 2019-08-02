@@ -1,4 +1,4 @@
-package com.example.pingpongscore
+package com.example.pingpongscore.gamescore
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -15,15 +15,6 @@ class SaveConfirmDialogFragment : DialogFragment() {
     interface SaveConfirmDialogListener {
         fun onDialogPositiveClick(dialogFragment: DialogFragment)
         fun onDialogNegativeClick(dialogFragment: DialogFragment)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        try {
-            listener = getTargetFragment() as SaveConfirmDialogListener
-        }catch (e: ClassCastException ) {
-            throw ClassCastException("Calling fragment must implement SaveConfirmDialogListener")
-        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -45,4 +36,12 @@ class SaveConfirmDialogFragment : DialogFragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            listener = getTargetFragment() as SaveConfirmDialogListener
+        }catch (e: ClassCastException ) {
+            throw ClassCastException("Calling fragment must implement SaveConfirmDialogListener")
+        }
+    }
 }

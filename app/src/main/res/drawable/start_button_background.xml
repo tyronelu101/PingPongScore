@@ -4,8 +4,8 @@
     <item android:state_pressed="false">
         <shape android:shape="oval">
             <solid android:color="@color/buttonStatePressedFalse"/>
-            <size android:width="100dp"
-                  android:height="100dp"/>
+            <size android:width="90dp"
+                  android:height="90dp"/>
         </shape>
     </item>
 

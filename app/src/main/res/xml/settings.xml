@@ -7,9 +7,5 @@
             app:key="tieBreakToggle"
             app:title="Tie Break"/>
 
-    <Preference
-            app:key="about"
-            app:title="About"
-            app:summary="This is some random text"/>
 
 </PreferenceScreen>

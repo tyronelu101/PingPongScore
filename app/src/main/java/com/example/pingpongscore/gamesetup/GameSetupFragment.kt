@@ -6,22 +6,15 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.room.util.StringUtil
 import com.example.pingpongscore.R
-import com.example.pingpongscore.SaveConfirmDialogFragment
 import com.example.pingpongscore.databinding.FragmentGameSetupBinding
-import org.w3c.dom.Text
 
 
 class GameSetupFragment : Fragment() {
@@ -98,7 +91,7 @@ class GameSetupFragment : Fragment() {
             it.findNavController().navigate(action)
         }
 
-        binding.player1Text.addTextChangedListener(object: TextWatcher {
+        binding.player1Text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -112,7 +105,7 @@ class GameSetupFragment : Fragment() {
 
         })
 
-        val textEditWatcher = object: TextWatcher {
+        val textEditWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -134,16 +127,20 @@ class GameSetupFragment : Fragment() {
                 Server.PLAYER1 -> {
                     binding.player1ServeText.visibility = View.VISIBLE
                     binding.player2ServeText.visibility = View.INVISIBLE
+                    binding.questionMark.visibility = View.INVISIBLE
                 }
 
                 Server.PLAYER2 -> {
                     binding.player1ServeText.visibility = View.INVISIBLE
                     binding.player2ServeText.visibility = View.VISIBLE
+                    binding.questionMark.visibility = View.INVISIBLE
                 }
 
                 Server.RANDOMPLAYER -> {
                     binding.player1ServeText.visibility = View.INVISIBLE
                     binding.player2ServeText.visibility = View.INVISIBLE
+                    binding.questionMark.visibility = View.VISIBLE
+
                 }
             }
         })

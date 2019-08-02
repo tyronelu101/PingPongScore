@@ -4,17 +4,22 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
                 name="match"
                 type="com.example.pingpongscore.database.Match"/>
+        
+        <variable
+                name="clickListener"
+                type="com.example.pingpongscore.gamematchhistory.MatchListener"/>
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            android:longClickable="true"
+            android:onLongClick="@{() -> clickListener.onLongClick(match)}">
 
         <TextView
                 android:id="@+id/playerNames"
@@ -25,7 +30,7 @@
                 app:playerNames="@{match}"
                 android:layout_weight="5"
                 android:textColor="@color/textColor"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_vertical"/>
 
         <TextView
                 android:id="@+id/playerSets"

@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pingpongscore.R
-import com.example.pingpongscore.SaveConfirmDialogFragment
 import com.example.pingpongscore.database.MatchDatabase
 import com.example.pingpongscore.databinding.FragmentGameScoreBinding
-import com.example.pingpongscore.gamesetup.GameSetupFragmentDirections
 
 class GameScoreFragment : Fragment(), SaveConfirmDialogFragment.SaveConfirmDialogListener {
 
@@ -119,7 +116,6 @@ class GameScoreFragment : Fragment(), SaveConfirmDialogFragment.SaveConfirmDialo
                 val dialog = SaveConfirmDialogFragment()
                 dialog.setTargetFragment(this, 0)
                 dialog.show(fragmentManager!!, "SaveFragment")
-
             }
         }
         return super.onOptionsItemSelected(item)
