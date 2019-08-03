@@ -10,7 +10,7 @@
 
         <variable
                 name="viewModel"
-                type="com.example.pingpongscore.gamescore.GameScoreViewModel"/>
+                type="com.simplu.pingpongscore.gamescore.GameScoreViewModel"/>
 
     </data>
 

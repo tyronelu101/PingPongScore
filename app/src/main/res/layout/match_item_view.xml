@@ -6,11 +6,11 @@
     <data>
         <variable
                 name="match"
-                type="com.example.pingpongscore.database.Match"/>
+                type="com.simplu.pingpongscore.database.Match"/>
         
         <variable
                 name="clickListener"
-                type="com.example.pingpongscore.gamematchhistory.MatchListener"/>
+                type="com.simplu.pingpongscore.gamematchhistory.MatchListener"/>
     </data>
 
     <LinearLayout

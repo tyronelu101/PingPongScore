@@ -6,7 +6,7 @@
             app:startDestination="@id/gameStartFragment">
     <fragment
             android:id="@+id/gameStartFragment"
-            android:name="com.example.pingpongscore.gamesetup.GameSetupFragment"
+            android:name="com.simplu.pingpongscore.gamesetup.GameSetupFragment"
             android:label="fragment_game_start"
             tools:layout="@layout/fragment_game_setup">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
             android:id="@+id/gameScoreFragment"
-            android:name="com.example.pingpongscore.gamescore.GameScoreFragment"
+            android:name="com.simplu.pingpongscore.gamescore.GameScoreFragment"
             android:label="GameScoreFragment">
         <argument
                 android:name="server"
@@ -35,11 +35,11 @@
     </fragment>
     <fragment
             android:id="@+id/gameMatchHistoryFragment"
-            android:name="com.example.pingpongscore.gamematchhistory.MatchHistoryFragment"
+            android:name="com.simplu.pingpongscore.gamematchhistory.MatchHistoryFragment"
             android:label="fragment_game_match_history"
             tools:layout="@layout/fragment_game_match_history"/>
     <fragment
             android:id="@+id/gamePreferenceFragment"
-            android:name="com.example.pingpongscore.GamePreferenceFragment"
+            android:name="com.simplu.pingpongscore.GamePreferenceFragment"
             android:label="GamePreferenceFragment"/>
 </navigation>
